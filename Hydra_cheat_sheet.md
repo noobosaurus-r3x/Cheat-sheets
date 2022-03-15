@@ -3,15 +3,25 @@
 
 # **Some flags :**
 `-h`  Show help menu
+
 `-l <username>`  Username/login
+
 `-L <wordlist>`  Usernames/login wordlist
+
 `-p <password>`  Password
+
 `-P <wordlist>`  Passwords wordlist
+
 `-s <PORT>`  Specify port
+
 `-f`  Stop bruteforce as soon as username and password are found
+
 `-R`  Restore previous session
+
 `-t <number>`  Number of threads
+
 `-V`  Verbosity
+
 
 # **Some protocols :**
 SSH, FTP, POP3, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-HEAD, HTTP-POST, HTTP-GET, IMAP,
