@@ -1,5 +1,11 @@
 # Cheat sheets
 
-Some cheat sheets for y'alls.
+I'll upload the cheat sheets for hacking tools in this repo.
 
-I hope that will help somebody out there.
+I'll keep it simple and beginner friendly.
+
+Let's start with hydra and nmap.
+
+Hopefully it will help somebody out there.
+
+
