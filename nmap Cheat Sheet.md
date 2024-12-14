@@ -8,31 +8,48 @@ sudo nmap -sV -sT -O -p- -vv --script vulners 10.10.10.10
 ```
 
 # **Common flags**
-```bash
--p <PORT> #Scan specific port
--p- #Scan all ports
--sT #TCP scan
--sU #UDP scan
--sV #Try to find services and versions running on the target
--Pn #Disable ping
--sS #Syn scan also called "Stealth Scan"
--oA #Output in all format
--sn #Host discovery (no port scan)
--A #Aggressive mode engaged
--O #Find operating system
--v -vv -vvv #Verbose mode
---script vuln
---script vulners
---script=http-enum Act a bit like nikto
-```
+
+`-p <PORT>` Scan specific port
+
+`-p-` Scan all ports
+
+`-sT` TCP scan
+
+`-sU` UDP scan
+
+`-sV` Try to find services and versions running on the target
+
+`-Pn` Disable ping
+
+`-sS` Syn scan also called "Stealth Scan"
+
+`-oA` Output in all format
+
+`-sn` Host discovery (no port scan)
+
+`-A` Aggressive mode engaged
+
+`-O` Find operating system
+
+`-v` `-vv` `-vvv` #Verbose mode
+
+`--script vuln`
+
+`--script vulners`
+
+`--script=http-enum` Act a bit like nikto
+
 
 # **Output formats**
-```bash
--oN "Normal output"
--oX XML format
--oG Greppable format
--oA All 3 formats from above
-```
+
+`-oN` "Normal output"
+
+`-oX` XML format
+
+`-oG` Greppable format
+
+`-oA` All 3 formats from above
+
 
 
 
