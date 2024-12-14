@@ -1,4 +1,4 @@
-#smbclient
+# smbclient
 ## Basic usage
 
 To connect to a file share using `smbclient`, use the following syntax:
