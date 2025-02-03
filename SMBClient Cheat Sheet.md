@@ -1,65 +1,160 @@
-# smbclient
-## Basic usage
+# smbclient Cheat Sheet  
 
-To connect to a file share using `smbclient`, use the following syntax:
+## **1. Basic Terminology**  
+- **SMB (Server Message Block)**: Protocol for file sharing, printers, and network communication.  
+- **smbclient**: Command-line tool to interact with SMB shares (similar to FTP).  
+- **Share**: A network folder or resource exposed via SMB (e.g., `C$`, `Documents`).  
+- **Workgroup/Domain**: Network group for shared resources (default: `WORKGROUP`).  
 
-Copy code
-```bash
-smbclient //server/share [options]
-```
+---
 
-Replace `server` with the name or IP address of the server hosting the file share, and `share` with the name of the file share.
+## 2. Basic Usage**  
+
+### General Syntax  
+```bash  
+smbclient [options] //<server>/<share>  
+```  
+Replace `server` with the name or IP address of the server hosting the file share, and `share` with the name of the file share.
 
 You will be prompted for your username and password for the file share. Once authenticated, you will be presented with a command prompt where you can enter various commands to interact with the file share.
+### Common Options  
+| **Option**          | **Description**                                                                 |  
+|---------------------|---------------------------------------------------------------------------------|  
+| `-U <user>[%pass]`  | Username and password (e.g., `-U admin%Password123`).                           |  
+| `-W <domain>`       | Workgroup/domain name (default: `WORKGROUP`).                                   |  
+| `-I <IP>`           | Server IP address (bypasses DNS).                                               |  
+| `-p <port>`         | Custom port (default: 445 for SMB over TCP/IP).                                 |  
+| `-N`                | No password prompt (use with empty or guest access).                            |  
+| `-E`                | Hide password prompt output.                                                    |  
+| `-c <command>`      | Execute a command non-interactively (e.g., `-c 'ls'`).                          |  
+| `-A <creds-file>`   | Load credentials from a file (format: `username = admin`, `password = pass`).   |  
+| `-m <max-protocol>` | Set max SMB protocol (e.g., `-m SMB3`).                                         |  
+| `-d <debug-level>`  | Debug verbosity (0-10).                                                         |  
 
-## Options
+---
 
-Here are some of the options you can use with `smbclient`:
+## **3. Interactive Commands**  
 
--   `-U`: Specify a username to use when connecting to the file share.
--   `-W`: Specify the domain or workgroup that the server belongs to.
--   `-I`: Specify the IP address of the server.
--   `-p`: Specify the port number to use for the connection.
--   `-d`: Set the debug level.
--   `-N`: Do not ask for a password when connecting to the file share.
+Once connected, use these commands:
 
-## Available commands
+|**Command**|**Description**|
+|---|---|
+|`ls`|List files/directories.|
+|`cd <dir>`|Change directory.|
+|`get <file>`|Download a file.|
+|`put <file>`|Upload a file.|
+|`mget <pattern>`|Download multiple files (e.g., `mget *.txt`).|
+|`mput <pattern>`|Upload multiple files.|
+|`rm <file>`|Delete a file.|
+|`mkdir <dir>`|Create a directory.|
+|`rmdir <dir>`|Delete a directory.|
+|`pwd`|Print current directory.|
+|`recurse`|Toggle recursive mode for `mget`/`mput`.|
+|`mask <filter>`|Set a file filter (e.g., `mask *.docx`).|
+|`tar`|Create/extract tar backups (e.g., `tar c backup.tar *`).|
+|`exit`|Quit smbclient.|
 
-Here are some of the most common commands you can use with `smbclient`:
+---
 
--   `ls`: List the files and directories in the current directory.
--   `cd`: Change the current directory.
--   `put`: Upload a file to the file share.
--   `get`: Download a file from the file share.
--   `mput`: Upload multiple files to the file share.
--   `mget`: Download multiple files from the file share.
--   `rm`: Delete a file from the file share.
--   `mkdir`: Create a new directory on the file share.
--   `rmdir`: Delete a directory from the file share.
--   `pwd`: Print the current working directory.
--   `exit`: Disconnect from the file share and exit `smbclient`.
+## **4. Practical Examples**  
 
-## Examples
+### **Connection**  
+**Anonymous/Guest Access:**  
+```bash  
+smbclient //192.168.1.10/public -N  
+```  
 
-Here are some examples of using `smbclient` to connect to and interact with a file share:
+**Authenticated Access:**  
+```bash  
+smbclient //192.168.1.10/C$ -U admin%Password123  
+```  
 
-Copy code
-```bash
-# Connect to a file share and list the files and directories in the current directory 
-smbclient //server/share ls  
+**Specify Domain/Workgroup:**  
+```bash  
+smbclient //SERVER/Share -W CORP -U user%pass  
+```  
 
-# Connect to a file share using a specific username and password 
-smbclient //server/share -U username%password  
+---
 
-# Connect to a file share using a specific IP address and port number 
-smbclient //server/share -I 192.168.1.100 -p 139  
+### **File Operations**  
+**Download a File:**  
+```bash  
+smbclient //192.168.1.10/Data -U user%pass -c "get report.docx"  
+```  
 
-# Upload a file to the file share 
-smbclient //server/share put /path/to/local/file  
+**Upload All TXT Files:**  
+```bash  
+smbclient //192.168.1.10/Data -U user%pass -c "mask *.txt; recurse; mput *.txt"  
+```  
 
-# Download a file from the file share 
-smbclient //server/share get /path/to/remote/file  
+**Delete a File:**  
+```bash  
+smbclient //192.168.1.10/Data -U user%pass -c "rm oldfile.zip"  
+```  
 
-# Create a new directory on the file share 
-smbclient //server/share mkdir newdirectory
-```
+---
+
+### **Directory Management**  
+**Create a Directory:**  
+```bash  
+smbclient //192.168.1.10/Data -U user%pass -c "mkdir Projects"  
+```  
+
+**Recursive Download:**  
+```bash  
+smbclient //192.168.1.10/Data -U user%pass -c "recurse; prompt; mget *"  
+```  
+
+---
+
+### **Non-Interactive Mode**  
+**List Shares via Script:**  
+```bash  
+smbclient -L 192.168.1.10 -U admin%Password123 -N -I 192.168.1.10  
+```  
+
+**Backup Directory to Tar:**  
+```bash  
+smbclient //192.168.1.10/Backup -U user%pass -c "tar c backup.tar Documents"  
+```  
+
+---
+
+## **5. Advanced Techniques**  
+
+### **Mounting Shares**  
+Use `mount.cifs` (Linux) or `net use` (Windows) for persistent access:  
+```bash  
+sudo mount -t cifs //192.168.1.10/Data /mnt/share -o user=admin,pass=Password123  
+```  
+
+### **Brute-Force Share Names**  
+Combine with tools like `nmap` or `enum4linux`:  
+```bash  
+enum4linux -S 192.168.1.10  
+```  
+
+### **Using a Credentials File**  
+Create `creds.txt`:  
+```ini  
+username = admin  
+password = Password123  
+domain = CORP  
+```  
+Then:  
+```bash  
+smbclient //192.168.1.10/C$ -A creds.txt  
+```  
+
+---
+
+## **6. Troubleshooting**  
+
+- **Connection Refused**: Check firewall rules, SMB port (445/139), and service status.  
+- **Access Denied**: Verify credentials, share permissions, and user privileges.  
+- **Protocol Errors**: Use `-m SMB2` or `-m SMB3` to enforce protocol version.  
+
+---
+
+## **7. References**  
+- [smbclient Man Page](https://www.samba.org/samba/docs/current/man-html/smbclient.1.html)  
