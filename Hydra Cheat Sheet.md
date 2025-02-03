@@ -40,6 +40,16 @@ hydra [options] <IP> <service-module> [module-specific-parameters]
 ## **4. Service Modules & Examples**  
 *Format*: `<protocol>`: `[module-specific parameters]`  
 
+**Common service modules:**  
+- **SSH**: `ssh`  
+- **FTP**: `ftp`  
+- **HTTP Forms**: `http[s]-{get|post}-form`  
+- **SMB**: `smb`  
+- **MySQL**: `mysql`  
+- **RDP**: `rdp`  
+- **SMTP**: `smtp`  
+- **WordPress**: `http-form-post` (custom module)  
+
 ### **SSH**  
 **Module**: `ssh`  
 ```bash  
